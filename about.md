@@ -12,6 +12,9 @@ title: 关于我
 <p>
 
 <h3> 我的博客 </h3>  
+<p>
+ 
+<a href="https://yzx2018.github.io/#blog"> 个人博客 </a>
 
 <p>
  
