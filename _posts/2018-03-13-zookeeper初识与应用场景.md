@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "zookeeper初识与应用场景"
+title: "分布式协调工具-zookeeper初识与应用场景"
 date: 2018-03-13
 tags: java
 ---
