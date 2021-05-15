@@ -11,7 +11,7 @@ kafka cluster(集群)就是由多个broker topic partitions(分区)组成
 
 开局一张图
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-ba03217dc1bafde4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/1240.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-968dfeef183e2a73.gif?imageMogr2/auto-orient/strip) 
 
@@ -23,7 +23,7 @@ topic只是大的概论，真正存放消息的是partitions(分区)
 
 从图可以看出 topic0创建了3个分区 ([1 p2 p0)，每个brock分配一个分区，上面的图包含了两个副本，如果只创建分区本身是图如下
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-4076ff8c07cc3fb0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka2.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-495f09f98442bc34.gif?imageMogr2/auto-orient/strip) 
 
@@ -33,7 +33,7 @@ topic只是大的概论，真正存放消息的是partitions(分区)
 
 因为topic的每个分区存放的消息都不一样。所有当brock0挂掉后，p1上未被消费的消费就消费不到了。只有当重启之后才能消息。这样就没有起到消息集群容错的效果。所以有了分区副本的概念
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-b5202dda63267922?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka3.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-750ed70609cd608a.gif?imageMogr2/auto-orient/strip) 
 
@@ -43,7 +43,7 @@ topic只是大的概论，真正存放消息的是partitions(分区)
 
 在zk的客户端执行命令get /brokers/topics/topic0  (这个命令可以查到topic0主题下partitions分布在哪个brock)
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-f1d8a2530a90a1ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka4.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-ed1657872940a4b3.gif?imageMogr2/auto-orient/strip) 
 
@@ -53,7 +53,7 @@ topic只是大的概论，真正存放消息的是partitions(分区)
 
 在zk的客户端执行命令 get /brokers/topics/topic0/partitions/0/state  (可以查询主题下的partitions的leader partition(分区)在哪个brock上)
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-fe495edb3c85c07c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka5.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-05dc8764d0888be9.gif?imageMogr2/auto-orient/strip) 
 
@@ -87,7 +87,7 @@ follwer副本：不接收任何请求处理，只从leader副本同步消息日�
 
 消息从发送到落地保存，broker 维护的消息日志本身就是文件目录，每个文件都是二进制保存，生产者和消费者使 用相同的格式来处理。在消费者获取消息时，服务器先从 硬盘读取数据到内存，然后把内存中的数据原封不动的通 过 socket 发送给消费者。虽然这个操作描述起来很简单， 但实际上经历了很多步骤。
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-09456334f3421242?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka6.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-acbf6128c9e58e2a.gif?imageMogr2/auto-orient/strip) 
 
@@ -103,7 +103,7 @@ follwer副本：不接收任何请求处理，只从leader副本同步消息日�
 
 ### 通过“零拷贝”技术，可以去掉这些没必要的数据复制操作， 同时也会减少上下文切换次数。现代的 unix 操作系统提供 一个优化的代码路径，用于将数据从页缓存传输到 socket； 在 Linux 中，是通过 sendfile 系统调用来完成的。Java 提 供了访问这个系统调用的方法：FileChannel.transferTo API
 
-![image](https://upload-images.jianshu.io/upload_images/14890912-b72f5579d6b9b69d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://gitee.com/yezhaoxin/static/raw/master/images/kafka7.jpg)
 
 ![image.gif](https://upload-images.jianshu.io/upload_images/14890912-aecc6fe422f56795.gif?imageMogr2/auto-orient/strip) 
 
